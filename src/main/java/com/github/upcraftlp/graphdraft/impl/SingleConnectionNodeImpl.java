@@ -6,12 +6,12 @@ import com.github.upcraftlp.graphdraft.util.SingleConnectionNode;
 import java.util.Collections;
 import java.util.Set;
 
-public class SingleConnectionNodeImpl extends NodeImpl implements SingleConnectionNode {
+public class SingleConnectionNodeImpl implements SingleConnectionNode {
 
     private final Edge connection;
-    private final Set<EdgeImpl> connectionSet;
+    private final Set<Edge> connectionSet;
 
-    public SingleConnectionNodeImpl(EdgeImpl connection) {
+    public SingleConnectionNodeImpl(Edge connection) {
         this.connection = connection;
         this.connectionSet = Collections.singleton(connection);
     }
@@ -22,7 +22,7 @@ public class SingleConnectionNodeImpl extends NodeImpl implements SingleConnecti
     }
 
     @Override
-    public Set<EdgeImpl> getEdges() {
+    public Set<Edge> getEdges() {
         return connectionSet;
     }
 }
