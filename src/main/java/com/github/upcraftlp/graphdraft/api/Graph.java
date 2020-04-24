@@ -27,5 +27,5 @@ public interface Graph {
      * tries to find the cheapest connection from start to target node, that has at least the specified capacity
      */
     @ApiStatus.Experimental
-    boolean findConnection(List<Edge> path, Node start, Node target, int requiredCapacity);
+    List<Edge> findConnection(Node start, Node target, int requiredCapacity);
 }

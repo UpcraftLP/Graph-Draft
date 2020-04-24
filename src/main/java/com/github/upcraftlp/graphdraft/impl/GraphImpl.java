@@ -5,7 +5,7 @@ import com.github.upcraftlp.graphdraft.api.Graph;
 import com.github.upcraftlp.graphdraft.api.Node;
 import com.github.upcraftlp.graphdraft.util.Pair;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -37,6 +37,10 @@ public class GraphImpl implements Graph {
         return nodes;
     }
 
+    public Set<Edge> getConnections(Node n, boolean bidirectional) {
+        return n.getEdges();
+    }
+
     @Override
     public void processQueue() {
         for(Node node : nodes) {
@@ -44,27 +48,31 @@ public class GraphImpl implements Graph {
         }
     }
 
-    @Override
-    public boolean findConnection(List<Edge> path, Node start, Node target, int requiredCapacity) {
-        Pair<Node, Node> pair = new Pair<>(start, target);
-        if(connectionCache.containsKey(pair)) {
-            path.addAll(connectionCache.get(pair));
-            return true;
-        }
-        else {
-            for(Edge edge : start.getEdges()) {
-                Node currentTarget = edge.getLeft() == start ? edge.getRight() : edge.isBidirectional() ? edge.getLeft() : null;
-                if(currentTarget != null && !path.contains(edge)) {
-                    if(currentTarget == target || findConnection(path, currentTarget, target, requiredCapacity)) {
-                        path.add(edge);
-                        connectionCache.put(pair, new ArrayList<>(path));
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+    public List<Edge> findConnection(Node start, Node target, int requiredCapacity) {
+        return Collections.emptyList(); //no connection found
     }
+
+//    @Override
+//    public boolean findConnection(List<Edge> path, Node start, Node target, int requiredCapacity) {
+//        Pair<Node, Node> pair = new Pair<>(start, target);
+//        if(connectionCache.containsKey(pair)) {
+//            path.addAll(connectionCache.get(pair));
+//            return true;
+//        }
+//        else {
+//            for(Edge edge : start.getEdges()) {
+//                Node currentTarget = edge.getLeft() == start ? edge.getRight() : edge.isBidirectional() ? edge.getLeft() : null;
+//                if(currentTarget != null && !path.contains(edge)) {
+//                    if(currentTarget == target || findConnection(path, currentTarget, target, requiredCapacity)) {
+//                        path.add(edge);
+//                        connectionCache.put(pair, new ArrayList<>(path));
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     protected void mergeWith(Graph other) {
 
