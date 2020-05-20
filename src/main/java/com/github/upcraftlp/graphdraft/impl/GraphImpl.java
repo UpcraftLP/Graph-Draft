@@ -75,6 +75,5 @@ public class GraphImpl implements Graph {
 //    }
 
     protected void mergeWith(Graph other) {
-
     }
 }
